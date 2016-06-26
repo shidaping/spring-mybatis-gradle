@@ -22,7 +22,7 @@ public class PostController {
 	@Autowired
 	private PostDaoImpl postDaoImpl;
 	private Logger logger = LoggerFactory.getLogger(PostController.class);
-	@RequestMapping(value="json/post/create.json",produces = "application/json;charset=utf-8",method = RequestMethod.GET)
+	@RequestMapping(value="/json/post/create.json",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 	@ResponseBody
 	public Map login(Model model, HttpServletRequest request, HttpServletResponse response) {
 		Map json=new HashMap();

@@ -13,7 +13,7 @@
     http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
 	<!-- 自动扫描的包名 -->
 	<context:component-scan
-		base-package="com.sdp.controller. ,com.sdp.jsoncontroller. ,com.sdp.mybatis.dao"></context:component-scan>
+		base-package="com.sdp.controller. ,com.sdp.service. ,com.sdp.jsoncontroller. ,com.sdp.mybatis.dao" />
 	<!-- 默认的注解映射的支持 -->
 	<mvc:annotation-driven />
 	<context:property-placeholder
@@ -32,6 +32,15 @@
 	<bean id="postDaoImpl" class="com.sdp.mybatis.dao.PostDaoImpl">
 		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
+	<bean id="projectDaoImpl" class="com.sdp.mybatis.dao.ProjectDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+	<bean id="userDaoImpl" class="com.sdp.mybatis.dao.UserDaoImpl">
+		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- 错误处理 -->
+	<bean id="exceptionHandler" class="com.sdp.exception.SpringExceptionHandler"></bean>
 	<!-- 视图解释类 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
 		<property name="prefix" value="/WEB-INF/jsp/"/> <property name="suffix" value=".jsp"/> 
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" 

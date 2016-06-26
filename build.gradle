@@ -9,9 +9,12 @@ apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
   
 sourceCompatibility = 1.8 
-webAppDirName = 'WebContent'    // 设置 WebApp 根目录
-sourceSets.main.java.srcDir 'src'   // 设置 Java 源码所在目录   
+webAppDirName = 'WebContent'    
+sourceSets.main.java.srcDir 'src' 
 repositories {  
+    maven {
+        url "http://maven.petrikainulainen.net/repo"
+    }
     mavenCentral()
 }  
   
@@ -31,6 +34,11 @@ dependencies {
   compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21' 
   compile group: 'org.apache.velocity', name: 'velocity', version: '1.7'
   compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '8.0.35'
+  compile group: 'ch.qos.logback', name: 'logback-core', version: '1.1.7'
+  compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
+  compile group: 'org.logback-extensions', name: 'logback-ext-spring', version: '0.1.4'
+  compile group: 'org.springframework.security', name: 'spring-security-core', version: '4.1.0.RELEASE'
+  compile group: 'org.springframework.security', name: 'spring-security-web', version: '4.1.0.RELEASE'
   
 }
 eclipse {
