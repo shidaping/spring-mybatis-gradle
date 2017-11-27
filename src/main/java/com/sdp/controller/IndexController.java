@@ -16,6 +16,11 @@ public class IndexController {
 	@RequestMapping("/")
 	public String login(Model model, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("asdfdaf");
+		System.out.println("ddd");
+		logger.info("this is info");
+		logger.debug("this is debug");
+		logger.warn("this is warn");
+		logger.error("this is error");
 		return "index";
 		// dd
 	}
