@@ -15,7 +15,7 @@ public class IndexController {
 
 	@RequestMapping("/")
 	public String login(Model model, HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("asdfasdfsdaf");
+		System.out.println("asdfdaf");
 		return "index";
 		// dd
 	}
