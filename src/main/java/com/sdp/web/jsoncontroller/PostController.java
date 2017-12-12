@@ -1,4 +1,4 @@
-package com.sdp.jsoncontroller;
+package com.sdp.web.jsoncontroller;
 
 import java.util.HashMap;
 import java.util.Map;

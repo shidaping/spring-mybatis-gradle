@@ -1,4 +1,4 @@
-package com.sdp.controller;
+package com.sdp.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

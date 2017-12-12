@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.sdp.mybatis.model.Post;
 
 @Service
-public class PostDaoImpl extends SqlSessionDaoSupport implements PostDao{
+public class PostDaoImpl extends BaseDaoImpl implements PostDao{	 
 	@Override
 	public boolean createPost(Post post) {
 		// TODO Auto-generated method stub
