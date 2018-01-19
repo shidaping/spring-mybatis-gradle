@@ -12,18 +12,20 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sdp.aop.inteceptor.LoginInterceptor;
 
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
 @EnableWebMvc //<mvc:annotation-driven />
 @Configuration
-@ComponentScan({ "com.sdp.web.controller", "com.sdp.web.jsoncontroller" })
+@ComponentScan({ "com.sdp.web.controller.**", "com.sdp.web.jsoncontroller.**" })
 public class SpringWebConfig extends WebMvcConfigurerAdapter {
 	// @Override
 	// public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -40,6 +42,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 //		viewResolver.setSuffix(".html");
 //		return viewResolver;
 //	}
+	
 
 	@Bean(name = "viewResolver")
 	public ViewResolver velocityViewResolver() {
@@ -48,6 +51,12 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		velocityViewResolver.setSuffix(".html");
 		velocityViewResolver.setContentType("text/html; charset=UTF-8");
 		return velocityViewResolver;
+	}
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		// TODO Auto-generated method stub
+		super.addInterceptors(registry);
+		registry.addInterceptor(new LoginInterceptor());
 	}
 	@Bean(name = "velocityConfig")
 	public VelocityConfigurer velocityConfigurer() {
