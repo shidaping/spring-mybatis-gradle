@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,6 +19,7 @@ import com.sdp.util.JedisUtil;
 import com.sdp.util.SessionUtil;
 import com.sdp.web.controller.IndexController;
 
+@Service
 public class SessionInterceptor implements HandlerInterceptor {
 	private Logger logger = LoggerFactory.getLogger(IndexController.class);
 	@Autowired

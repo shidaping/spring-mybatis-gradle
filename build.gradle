@@ -1,10 +1,19 @@
 apply plugin: 'eclipse'
 apply plugin: 'java'
+apply plugin: 'war' 
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
+import org.gradle.plugins.ide.eclipse.model.Facet
+apply plugin: 'eclipse-wtp'
+  
+sourceCompatibility = 1.8 
+// webAppDirName = 'src/webapp'
+// sourceSets.main.java.srcDir 'src/main/java' 
 repositories {  
     mavenCentral()
     // jcenter()
-}
+}  
+  
 dependencies {  
   compile group: 'org.springframework', name: 'spring-core', version: '4.1.6.RELEASE'
   compile group: 'org.springframework', name: 'spring-webmvc', version: '4.1.6.RELEASE'
@@ -26,10 +35,10 @@ dependencies {
   compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.21' 
   compile group: 'org.apache.velocity', name: 'velocity', version: '1.7'
   compile 'javax.servlet:javax.servlet-api:3.1.0'
-  compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.8.v20171121'
-  compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: '9.4.8.v20171121'
-  compile group: 'org.eclipse.jetty', name: 'jetty-annotations', version: '9.4.8.v20171121'
   // compile 'org.eclipse.jetty:jetty-distribution:8.1.19.v20160209'
+  // compile group: 'org.eclipse.jetty', name: 'jetty-server', version: '9.4.8.v20171121'
+  // compile group: 'org.eclipse.jetty', name: 'jetty-webapp', version: '9.4.8.v20171121'
+  // compile group: 'org.eclipse.jetty', name: 'jetty-annotations', version: '9.4.8.v20171121'
   // compile 'org.eclipse.jetty:jetty-distribution:9.4.5.v20170502'
   // compile group: 'org.eclipse.jetty.cdi', name: 'cdi-servlet', version: '9.4.5.v20170502'
   // compile group: 'org.eclipse.jetty.cdi', name: 'cdi-websocket', version: '9.4.5.v20170502'
@@ -46,6 +55,30 @@ dependencies {
   compile group: 'org.logback-extensions', name: 'logback-ext-spring', version: '0.1.4'
   
 }
+eclipse {
+    wtp {
+        facet {
+            facet name: 'jst.web', type: Facet.FacetType.fixed
+            facet name: 'wst.jsdt.web', type: Facet.FacetType.fixed
+            facet name: 'jst.java', type: Facet.FacetType.fixed
+            facet name: 'jst.web', version: '3.0'
+            facet name: 'jst.java', version: '1.8'
+            facet name: 'wst.jsdt.web', version: '1.0'
+        }
+    }
+}
+gretty {  
+    httpPort = 8080  
+    // contextPath ="/${project.name}"
+    contextPath ="/"    
+    servletContainer = 'jetty9' 
+    systemProperty 'env', 'prd' 
+} 
+task download(type: Copy) {  
+    from configurations.runtime  
+    into 'lib' 
+}
+
 jar {
     // from {
     //     configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
@@ -54,6 +87,31 @@ jar {
     manifest {
         attributes 'Main-Class': 'com.sdp.App'
     }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+configurations {
+  executableWarDeps
+}
+
+
+
+war {
+
+  // from "$buildDir/classes/java/main"
+  manifest { 
+    attributes (
+      'Main-Class': 'com.sdp.App',
+    ) 
+
+  }
+  // from {
+  //   configurations.executableWarDeps.collect {
+  //     it.isDirectory() ? it : project.zipTree(it)
+  //   }
+  // }
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }

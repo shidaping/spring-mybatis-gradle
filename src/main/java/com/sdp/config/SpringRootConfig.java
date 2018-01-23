@@ -23,8 +23,9 @@ import com.sdp.web.controller.IndexController;
 import redis.clients.jedis.Jedis;
 
 @Configuration
-@PropertySource("classpath:config.properties")
-@ComponentScan({ "com.sdp.mybatis.**", "com.sdp.util.**" })
+//@PropertySource("classpath:config.properties")
+@PropertySource("classpath:config-${systemProperties['env']?systemProperties['env']:dev}.properties")
+@ComponentScan({ "com.sdp.mybatis.**", "com.sdp.util.**", "com.sdp.aop.inteceptor.**" })
 @Import(value = {JedisConfig.class, MysqlConfig.class })
 @EnableAspectJAutoProxy
 public class SpringRootConfig  {

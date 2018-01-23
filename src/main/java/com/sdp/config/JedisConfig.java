@@ -32,6 +32,7 @@ public class JedisConfig {
 	}
 	@Bean
 	public JedisUtil jedisUtil() {
+		System.out.println("jeditUtil init");
 		return new JedisUtil(this.jedisPool());
 	}
 }

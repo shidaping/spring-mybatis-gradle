@@ -14,7 +14,7 @@ import com.sdp.web.controller.IndexController;
 @Configuration
 public class MysqlConfig {
 	private Logger logger = LoggerFactory.getLogger(IndexController.class);
-    @Value("#{systemProperties['SDP_DEPLOY_ENV']}")
+    @Value("${db.url}")
     private String jdbcUrl;
 	@Bean
 	public BasicDataSource basicDataSource() {

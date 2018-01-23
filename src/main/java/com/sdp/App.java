@@ -1,31 +1,31 @@
 package com.sdp;
 
-import java.io.IOException;
-import java.net.URL;
-import java.security.ProtectionDomain;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.eclipse.jetty.annotations.AnnotationConfiguration;
-import org.eclipse.jetty.annotations.ClassInheritanceHandler;
-import org.eclipse.jetty.server.Connector;
-import org.eclipse.jetty.server.Server;
-//import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.ConcurrentHashSet;
-import org.eclipse.jetty.util.MultiMap;
-import org.eclipse.jetty.webapp.Configuration;
-import org.eclipse.jetty.webapp.WebAppContext;
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
-
-
-import com.sdp.config.ServletInitializer;
+//import java.io.IOException;
+//import java.net.URL;
+//import java.security.ProtectionDomain;
+//import java.util.HashSet;
+//import java.util.Set;
+//import java.util.concurrent.ConcurrentHashMap;
+//
+//import org.eclipse.jetty.annotations.AnnotationConfiguration;
+//import org.eclipse.jetty.annotations.ClassInheritanceHandler;
+//import org.eclipse.jetty.server.Connector;
+//import org.eclipse.jetty.server.Server;
+////import org.eclipse.jetty.server.ServerConnector;
+//import org.eclipse.jetty.servlet.ServletContextHandler;
+//import org.eclipse.jetty.servlet.ServletHolder;
+//import org.eclipse.jetty.util.ConcurrentHashSet;
+//import org.eclipse.jetty.util.MultiMap;
+//import org.eclipse.jetty.webapp.Configuration;
+//import org.eclipse.jetty.webapp.WebAppContext;
+//import org.springframework.web.WebApplicationInitializer;
+//import org.springframework.web.context.ContextLoaderListener;
+//import org.springframework.web.context.WebApplicationContext;
+//import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+//import org.springframework.web.servlet.DispatcherServlet;
+//
+//
+//import com.sdp.config.ServletInitializer;
 
 public class App {
 	public static void main(String[] args) {
@@ -58,6 +58,9 @@ public class App {
 		// e.printStackTrace();
 		// System.exit(100);
 		// }
+		
+		/*
+		
 		Server server = new Server(8080);
 		WebAppContext webAppContext = new WebAppContext();
 		webAppContext.setResourceBase("src/main/webapp");
@@ -110,6 +113,7 @@ public class App {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
 	// private ServletContextHandler getServletContextHandler(WebApplicationContext

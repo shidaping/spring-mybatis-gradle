@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sdp.aop.annotation.LoginRequired;
 import com.sdp.mybatis.dao.PostDaoImpl;
 import com.sdp.mybatis.model.Post;
 @Controller
@@ -22,6 +23,7 @@ public class PostController {
 	@Autowired
 	private PostDaoImpl postDaoImpl;
 	private Logger logger = LoggerFactory.getLogger(PostController.class);
+	@LoginRequired(type="admin")
 	@RequestMapping(value="/post/create",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 	@ResponseBody
 	public Map create(Model model, HttpServletRequest request, HttpServletResponse response) {

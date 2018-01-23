@@ -9,6 +9,6 @@ public class CookieUtil {
 				return cookie;
 			}
 		}
-		return null;
+		return new Cookie(name, "");
 	}
 }

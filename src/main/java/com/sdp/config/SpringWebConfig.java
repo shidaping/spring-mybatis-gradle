@@ -20,6 +20,7 @@ import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sdp.aop.inteceptor.LoginInterceptor;
+import com.sdp.aop.inteceptor.SessionInterceptor;
 
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 
@@ -52,10 +53,16 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		velocityViewResolver.setContentType("text/html; charset=UTF-8");
 		return velocityViewResolver;
 	}
+	@Bean
+	public SessionInterceptor sessionInterceptor() {
+		return new SessionInterceptor();
+		
+	}
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		// TODO Auto-generated method stub
 		super.addInterceptors(registry);
+		registry.addInterceptor(this.sessionInterceptor());
 		registry.addInterceptor(new LoginInterceptor());
 	}
 	@Bean(name = "velocityConfig")

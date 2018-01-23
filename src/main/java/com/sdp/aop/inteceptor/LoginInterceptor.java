@@ -34,6 +34,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             Map json = new HashMap();
             boolean error = false;
             SessionUtil sessionUtil = (SessionUtil) request.getAttribute("sessionUtil"); 
+            System.out.println(sessionUtil);
             if(sessionUtil == null) {
             		error = true;
             		json.put("code", 1000);
@@ -41,8 +42,14 @@ public class LoginInterceptor implements HandlerInterceptor {
             } else {
             		long userId = Long.parseLong(sessionUtil.get("id"));
             		User user;
+            		if(loginRequired.type().equals("admin")) {
+            			if(userId != 234) {
+            				error = true;
+                    		json.put("code", 1001);
+                        json.put("msg", "权限不够");
+            			}
+            		}
             }
-        	
             if(error) {
     				PrintWriter writer = null;
                 response.setCharacterEncoding("UTF-8");

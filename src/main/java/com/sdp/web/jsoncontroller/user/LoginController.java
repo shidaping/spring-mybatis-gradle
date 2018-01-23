@@ -74,8 +74,9 @@ public class LoginController {
 		String uuid = UUID.randomUUID().toString();
 		ObjectMapper objectMapper = new ObjectMapper();
 		String session = objectMapper.writeValueAsString(loginReq);
-		jedisUtil.set(uuid, session);
+		jedisUtil.set(uuid + "id", "234");
 		Cookie cookie = new Cookie("sessionId", uuid);
+		cookie.setPath("/");
 		cookie.setHttpOnly(true);
 		cookie.setMaxAge(24 * 60 * 60 * 1000);
 		response.addCookie(cookie);
