@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
@@ -31,6 +32,12 @@ import redis.clients.jedis.Jedis;
 public class SpringRootConfig  {
 	private Logger logger = LoggerFactory.getLogger(IndexController.class);
 //	@Autowired
-    Environment env;
+//	@Value("${db.url}")
+//    private String env;
+    //You need this
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+       return new PropertySourcesPlaceholderConfigurer();
+    }
 
 }

@@ -18,7 +18,7 @@ public class MysqlConfig {
     private String jdbcUrl;
 	@Bean
 	public BasicDataSource basicDataSource() {
-		logger.error("env",jdbcUrl);
+		System.out.println(jdbcUrl);
 		BasicDataSource basicDataSource = new BasicDataSource();
 		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
 		//basicDataSource.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8");
