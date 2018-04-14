@@ -2,39 +2,40 @@ package com.sdp.aop.inteceptor;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.http.HttpMethod;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.sdp.util.CookieUtil;
-import com.sdp.util.JedisUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sdp.aop.annotation.LoginRequired;
+import com.sdp.mybatis.dao.UserDaoImpl;
+import com.sdp.mybatis.model.User;
 import com.sdp.util.SessionUtil;
-import com.sdp.web.controller.IndexController;
 
-@Service
-public class SessionInterceptor implements HandlerInterceptor {
-	@Autowired
-	JedisUtil jedisUtil;
-
+public class CrosInterceptor implements HandlerInterceptor {
+	private Logger logger = LoggerFactory.getLogger(CrosInterceptor.class);
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		// TODO Auto-generated method stub
-		Cookie[] cookies = request.getCookies();
-		String sessionId = CookieUtil.get(cookies, "sessionId").getValue();
-		SessionUtil sessionUtil = new SessionUtil(jedisUtil, sessionId);
-		if(!sessionId.isEmpty()) {
-			request.setAttribute("sessionUtil", sessionUtil);
-		}		
-		return true;
+		HandlerMethod handlerMethod = (HandlerMethod) handler;
+        Method method = handlerMethod.getMethod();
+        if (request.getMethod().toUpperCase().equals("OPTIONS")) {
+        		response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        		return false;
+        } else {
+    			return true;
+        }
+
 	}
 
 	@Override
@@ -52,3 +53,4 @@ public class SessionInterceptor implements HandlerInterceptor {
 	}
 
 }
+

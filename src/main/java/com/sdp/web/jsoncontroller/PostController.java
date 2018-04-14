@@ -18,11 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sdp.aop.annotation.LoginRequired;
 import com.sdp.mybatis.dao.PostDaoImpl;
 import com.sdp.mybatis.model.Post;
+
+import lombok.extern.slf4j.Slf4j;
 @Controller
+@Slf4j
 public class PostController {
 	@Autowired
 	private PostDaoImpl postDaoImpl;
-	private Logger logger = LoggerFactory.getLogger(PostController.class);
 	@LoginRequired(type="admin")
 	@RequestMapping(value="/post/create",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 	@ResponseBody
@@ -31,8 +33,8 @@ public class PostController {
 		Post newPost = new Post();
 		newPost.setTitle("sdafsadfasdf");
 		newPost.setContent("sadfsadfd");
-		logger.info(newPost.getTitle());
-		logger.info(newPost.getContent());
+		log.info(newPost.getTitle());
+		log.info(newPost.getContent());
 		if(postDaoImpl.createPost(newPost)){
 			json.put("error", false);
 			json.put("data", newPost);

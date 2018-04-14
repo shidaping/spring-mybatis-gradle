@@ -21,8 +21,10 @@ import com.sdp.mybatis.dao.UserDaoImpl;
 import com.sdp.mybatis.model.User;
 import com.sdp.util.SessionUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class LoginInterceptor implements HandlerInterceptor {
-	private Logger logger = LoggerFactory.getLogger(LoginInterceptor.class);
 	UserDaoImpl userDaoImpl;
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -59,7 +61,7 @@ public class LoginInterceptor implements HandlerInterceptor {
                     ObjectMapper mapper = new ObjectMapper();
                     writer.print(mapper.writeValueAsString(json));
                 } catch (IOException e) {
-                    logger.error("response error",e);
+                    log.error("response error",e);
                 } finally {
                     if (writer != null)
                         writer.close();

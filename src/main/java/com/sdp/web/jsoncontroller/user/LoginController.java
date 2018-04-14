@@ -48,7 +48,7 @@ public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(PostController.class);
 	@Autowired
 	private JedisUtil jedisUtil;
-	@RequestMapping(value="/user/login",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
+	@RequestMapping(value="/api/user/login",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 	@ResponseBody
 	public Map login(
 			Model model,

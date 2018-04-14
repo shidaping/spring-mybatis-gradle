@@ -19,6 +19,7 @@ import org.springframework.web.servlet.view.velocity.VelocityConfigurer;
 import org.springframework.web.servlet.view.velocity.VelocityViewResolver;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sdp.aop.inteceptor.CrosInterceptor;
 import com.sdp.aop.inteceptor.LoginInterceptor;
 import com.sdp.aop.inteceptor.SessionInterceptor;
 
@@ -64,6 +65,7 @@ public class SpringWebConfig extends WebMvcConfigurerAdapter {
 		super.addInterceptors(registry);
 		registry.addInterceptor(this.sessionInterceptor());
 		registry.addInterceptor(new LoginInterceptor());
+		registry.addInterceptor(new CrosInterceptor());
 	}
 	@Bean(name = "velocityConfig")
 	public VelocityConfigurer velocityConfigurer() {
