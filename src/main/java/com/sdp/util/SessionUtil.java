@@ -9,7 +9,7 @@ public class SessionUtil {
 		System.out.println("ccccccccc");
 		System.out.println(jedisUtil);
 		this.jedisUtil = jedisUtil;
-		this.sessionId = sessionId;
+		this.sessionId = sessionId; 
 	}
 	public String get(String name) {
 		System.out.println(jedisUtil);

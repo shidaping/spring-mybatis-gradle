@@ -58,16 +58,16 @@ public class LoginController {
 			LoginReq loginReq) throws JsonProcessingException {
 		Map json=new HashMap();
 		if(loginReq.getUsername().isEmpty()) {
-			return new com.sdp.error.NeedParam("缺少用户名");
+//			return new com.sdp.error.NeedParam("缺少用户名");
 		}
 		if(loginReq.getPassword().isEmpty()) {
-			return new com.sdp.error.NeedParam("缺少密码");
+//			return new com.sdp.error.NeedParam("缺少密码");
 		}
 		if(!loginReq.getUsername().equals("admin")) {
-			return new com.sdp.error.user.NotFound();
+//			return new com.sdp.error.user.NotFound();
 		}
 		if(!loginReq.getPassword().equals("admin")) {
-			return new com.sdp.error.user.WrongPassword();
+//			return new com.sdp.error.user.WrongPassword();
 		}
 		json.put("code", 0);
 		// 写入redis

@@ -11,15 +11,22 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sdp.aop.annotation.LoginRequired;
+import com.sdp.enumeration.ExceptionEnum;
+import com.sdp.exception.BaseException;
 import com.sdp.mybatis.dao.PostDaoImpl;
 import com.sdp.mybatis.model.Post;
+import com.sdp.util.ValidateUtil;
 
 import lombok.extern.slf4j.Slf4j;
+
+
+
 @Controller
 @Slf4j
 public class PostController {
@@ -28,26 +35,19 @@ public class PostController {
 	@LoginRequired(type="admin")
 	@RequestMapping(value="/post/create",produces = "application/json;charset=utf-8",method = RequestMethod.POST)
 	@ResponseBody
-	public Map create(Model model, HttpServletRequest request, HttpServletResponse response) {
+	public Map create(Model model, HttpServletRequest request, HttpServletResponse response, @RequestBody Post post) throws BaseException {
 		Map json=new HashMap();
-		Post newPost = new Post();
-		newPost.setTitle("sdafsadfasdf");
-		newPost.setContent("sadfsadfd");
-		log.info(newPost.getTitle());
-		log.info(newPost.getContent());
-		if(postDaoImpl.createPost(newPost)){
-			json.put("error", false);
-			json.put("data", newPost);
-		}else{
-			json.put("error", false);
-			json.put("code", "10000");
-			json.put("msg", "asdfasdf");
-			json.put("data", newPost);
+		String validateResult = ValidateUtil.validate(post);
+		if(validateResult != null) {
+			log.error("验证结果：" + validateResult);
+			throw new BaseException(ExceptionEnum.WRONG_PARAM, validateResult);
 		}
-
-		
+		log.info(post.getTitle());
+		log.info(post.getContent());
+		postDaoImpl.createPost(post);
+		json.put("error", false);
+		json.put("data", post);
 		return json;
-		// dd
 	}
 }
 
