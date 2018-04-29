@@ -1,6 +1,8 @@
 package com.sdp.config;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.apache.ibatis.logging.log4j.Log4jImpl;
+import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +13,11 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import com.sdp.web.controller.IndexController;
 
+import lombok.extern.log4j.Log4j;
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
+@Slf4j
 public class MysqlConfig {
 	private Logger logger = LoggerFactory.getLogger(IndexController.class);
     @Value("${db.url}")
@@ -24,7 +30,7 @@ public class MysqlConfig {
 		//basicDataSource.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8");
 		basicDataSource.setUrl(jdbcUrl);
 		
-		basicDataSource.setUsername("test");
+		basicDataSource.setUsername("root");
 		basicDataSource.setPassword("dangerous");
 		return basicDataSource;
 	}
@@ -38,7 +44,8 @@ public class MysqlConfig {
 		sqlSessionFactoryBean.setDataSource(basicDataSource());
 		org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
 		configuration.addMappers("com.sdp.mybatis.dao");
-		sqlSessionFactoryBean.setConfiguration(configuration );
+		configuration.setMapUnderscoreToCamelCase(true);
+		sqlSessionFactoryBean.setConfiguration(configuration);
 		return sqlSessionFactoryBean;
 	}
 }

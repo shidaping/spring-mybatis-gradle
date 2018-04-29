@@ -9,7 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sdp.exception.BaseException;
 
+import lombok.extern.slf4j.Slf4j;
+
 @ControllerAdvice
+@Slf4j
 public class ErrorController {
 	// 处理自定义的异常
 	@ExceptionHandler(BaseException.class)
@@ -27,7 +30,8 @@ public class ErrorController {
 	public Map allHandler(Exception e) {
 		Map map = new HashMap();
 		map.put("code", 500);
-		map.put("msg", e.getMessage());
+		map.put("msg", e.toString());
+		e.printStackTrace();
 		return map;
 	}
 }

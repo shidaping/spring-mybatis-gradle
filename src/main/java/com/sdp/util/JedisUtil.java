@@ -28,6 +28,20 @@ public class JedisUtil {
 	public void set(String key, String value) {
 		this.set(key, value, 24 * 60 * 60);
 	}
+	public void delete(String key) {
+		Jedis jedis = null;
+		try {
+			jedis = jedisPool.getResource();
+			jedis.auth("dangerous");
+			jedis.del(key);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(jedis != null) {
+				jedis.close();
+			}
+		}
+	}
 	public String get(String key) {
 		Jedis jedis = null;
 		try {

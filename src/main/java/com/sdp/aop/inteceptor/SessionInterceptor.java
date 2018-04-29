@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sdp.enumeration.ExceptionEnum;
+import com.sdp.exception.BaseException;
 import com.sdp.util.CookieUtil;
 import com.sdp.util.JedisUtil;
 import com.sdp.util.SessionUtil;
@@ -26,13 +28,22 @@ public class SessionInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-			throws Exception {
+			throws Exception, BaseException {
 		// TODO Auto-generated method stub
 		Cookie[] cookies = request.getCookies();
 		String sessionId = CookieUtil.get(cookies, "sessionId").getValue();
-		SessionUtil sessionUtil = new SessionUtil(jedisUtil, sessionId);
 		if(!sessionId.isEmpty()) {
-			request.setAttribute("sessionUtil", sessionUtil);
+			if(!jedisUtil.get(sessionId + "id").isEmpty()) {
+				SessionUtil sessionUtil = new SessionUtil(jedisUtil, sessionId);
+				request.setAttribute("sessionUtil", sessionUtil);
+			}else {
+				Cookie cookie = new Cookie("sessionId", "");
+				cookie.setPath("/");
+				cookie.setHttpOnly(true);
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+				throw new BaseException(ExceptionEnum.WRONG_LOGIN, "");
+			}
 		}		
 		return true;
 	}

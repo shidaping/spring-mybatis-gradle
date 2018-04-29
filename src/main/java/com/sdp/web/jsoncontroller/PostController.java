@@ -37,11 +37,7 @@ public class PostController {
 	@ResponseBody
 	public Map create(Model model, HttpServletRequest request, HttpServletResponse response, @RequestBody Post post) throws BaseException {
 		Map json=new HashMap();
-		String validateResult = ValidateUtil.validate(post);
-		if(validateResult != null) {
-			log.error("验证结果：" + validateResult);
-			throw new BaseException(ExceptionEnum.WRONG_PARAM, validateResult);
-		}
+		ValidateUtil.validate(post);
 		log.info(post.getTitle());
 		log.info(post.getContent());
 		postDaoImpl.createPost(post);

@@ -6,11 +6,13 @@ import com.sdp.mybatis.model.User;
 
 @Service
 public class UserDaoImpl extends BaseDaoImpl implements UserDao {
-
 	@Override
 	public User getUserById(long id) {
-		// TODO Auto-generated method stub
-		this.getSqlSession().selectOne("com.sdp.mybatis.dao.UserDao.getUserById", id);
-		return null;
+		return this.getSqlSession().selectOne("com.sdp.mybatis.dao.UserDao.getUserById", id);
+	}
+
+	@Override
+	public User getUserByUsername(String username) {
+		return this.getSqlSession().selectOne("com.sdp.mybatis.dao.UserDao.getUserByUsername", username);
 	}
 }
