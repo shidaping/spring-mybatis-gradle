@@ -22,16 +22,22 @@ public class MysqlConfig {
 	private Logger logger = LoggerFactory.getLogger(IndexController.class);
     @Value("${db.url}")
     private String jdbcUrl;
+    @Value("${db.driverClassName}")
+    private String driverClassName;
+    @Value("${db.username}")
+    private String dbUsername;
+    @Value("${db.password}")
+    private String dbPassword;
 	@Bean
 	public BasicDataSource basicDataSource() {
 		System.out.println(jdbcUrl);
 		BasicDataSource basicDataSource = new BasicDataSource();
-		basicDataSource.setDriverClassName("com.mysql.jdbc.Driver");
+		basicDataSource.setDriverClassName(driverClassName);
 		//basicDataSource.setUrl("jdbc:mysql://localhost:3306/test?useUnicode=true&amp;characterEncoding=utf-8");
 		basicDataSource.setUrl(jdbcUrl);
 		
-		basicDataSource.setUsername("root");
-		basicDataSource.setPassword("dangerous");
+		basicDataSource.setUsername(dbUsername);
+		basicDataSource.setPassword(dbPassword);
 		return basicDataSource;
 	}
 	@Bean

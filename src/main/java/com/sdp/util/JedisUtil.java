@@ -7,14 +7,16 @@ import redis.clients.jedis.JedisPool;
 
 public class JedisUtil {
 	private JedisPool jedisPool;
-	public JedisUtil(JedisPool jedisPool) {
+	private String auth;
+	public JedisUtil(JedisPool jedisPool, String auth) {
 		this.jedisPool = jedisPool;
+		this.auth = auth;
 	}
 	public void set(String key, String value, int expire) {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			jedis.auth("dangerous");
+			jedis.auth(auth);
 			jedis.expire(key, expire);
 			jedis.set(key, value);
 		} catch (Exception e) {
@@ -32,7 +34,7 @@ public class JedisUtil {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			jedis.auth("dangerous");
+			jedis.auth(auth);
 			jedis.del(key);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -46,7 +48,7 @@ public class JedisUtil {
 		Jedis jedis = null;
 		try {
 			jedis = jedisPool.getResource();
-			jedis.auth("dangerous");
+			jedis.auth(auth);
 			return jedis.get(key);
 		} catch (Exception e) {
 			e.printStackTrace();

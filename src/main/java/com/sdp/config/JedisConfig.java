@@ -1,5 +1,6 @@
 package com.sdp.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -11,6 +12,12 @@ import redis.clients.jedis.JedisPoolConfig;
 
 @Configuration
 public class JedisConfig {
+	@Value("${redis.auth}")
+	private String auth;
+	@Value("${redis.host}")
+	private String host;
+	@Value("${redis.port}")
+	private int port;
 	@Bean
 	public JedisPool jedisPool() {
 		JedisPoolConfig config = new JedisPoolConfig();
@@ -19,7 +26,7 @@ public class JedisConfig {
 		config.setMaxWaitMillis(5000);
 //		config.setTestOnBorrow(true);
 //		config.setTestOnReturn(true);
-		JedisPool jedisPool = new JedisPool(config, "118.31.6.61", 6379);
+		JedisPool jedisPool = new JedisPool(config, host, port);
 		return jedisPool;
 		
 //		Jedis jedis = jedisPool.getResource();
@@ -33,6 +40,6 @@ public class JedisConfig {
 	@Bean
 	public JedisUtil jedisUtil() {
 		System.out.println("jeditUtil init");
-		return new JedisUtil(this.jedisPool());
+		return new JedisUtil(this.jedisPool(), auth);
 	}
 }
